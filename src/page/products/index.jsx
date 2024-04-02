@@ -19,6 +19,8 @@ import { FileInput } from "../../components/file-input/file-input";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 import imageCompression from "browser-image-compression";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // import styles
 
 export const Products = () => {
   const [image, setImage] = React.useState("");
@@ -236,7 +238,7 @@ export const Products = () => {
             </div>
 
             <div className="col-span-12">
-              <Controller
+              {/* <Controller
                 name="description"
                 control={control}
                 defaultValue=""
@@ -248,6 +250,11 @@ export const Products = () => {
                     className={"description"}
                   />
                 )}
+              /> */}
+              <Controller
+                name="description"
+                control={control}
+                render={({ field }) => <ReactQuill {...field} />}
               />
             </div>
 
