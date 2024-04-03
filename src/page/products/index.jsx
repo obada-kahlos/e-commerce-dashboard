@@ -83,6 +83,7 @@ export const Products = () => {
       description: data.description,
       images: [image],
       discount: data.discount,
+      age: data.aga,
     };
     console.log(payload);
     await addProduct(payload);
@@ -218,6 +219,21 @@ export const Products = () => {
                   <Select {...field} label="Select Status">
                     <Option value="true">Active</Option>
                     <Option value="false">None</Option>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="col-span-12">
+              <Controller
+                name="age"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Select {...field} label="Select age">
+                    <Option value="جديد">جديد</Option>
+                    <Option value="مستعمل">مستعمل</Option>
+                    <Option value="اوبن بوكس">اوبن بوكس</Option>
                   </Select>
                 )}
               />
