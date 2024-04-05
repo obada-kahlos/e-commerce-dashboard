@@ -20,6 +20,7 @@ const extendedApi = apiSlice.injectEndpoints({
                 type
                 status
                 count
+                age
               }
             }
           `,
@@ -41,6 +42,35 @@ const extendedApi = apiSlice.injectEndpoints({
           `,
           variables: {
             payload,
+          },
+        },
+      }),
+      invalidatesTags: ["Products"],
+    }),
+    editProduct: builder.mutation({
+      query: ({ payload, id }) => ({
+        url: "",
+        method: "POST",
+        body: {
+          query: `
+          mutation MyMutation($payload: Products_set_input, $id: uuid = "") {
+            update_Products_by_pk(pk_columns: {id: $id}, _set: $payload){
+              id
+              age
+              count
+              description
+              discount
+              images
+              name
+              price
+              status
+              type
+            }
+          }
+          `,
+          variables: {
+            payload,
+            id
           },
         },
       }),
@@ -72,4 +102,5 @@ export const {
   useGetProductsQuery,
   useAddProductMutation,
   useDeleteProductMutation,
+  useEditProductMutation,
 } = extendedApi;

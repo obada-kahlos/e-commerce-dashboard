@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ProductTable } from "../../components/table/tabel";
 import { DialogCustom } from "../../components/popup/popup";
 import {
   useAddProductMutation,
   useDeleteProductMutation,
   useGetProductsQuery,
+  useEditProductMutation,
 } from "../../data-access/api/Products/products";
 import {
   Button,
@@ -38,13 +39,25 @@ export const Products = () => {
   const [addPopup, setAddPopup] = React.useState(false);
   const [deletePopup, setDeletePopup] = React.useState(false);
 
-  const handleOpen = () => setAddPopup(!addPopup);
+  const handleOpen = () => {
+    setAddPopup(!addPopup);
+    reset();
+  };
 
   const { data } = useGetProductsQuery({});
+
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    if (data?.data?.Products) {
+      setProducts(data?.data?.Products);
+    }
+  }, [data]);
+
   const [addProduct, { isLoading: isLoadingAddProduct }] =
     useAddProductMutation({});
   const [deleteProduct, { isLoading: isLoadingDeletePopup }] =
     useDeleteProductMutation({});
+  const [editProduct] = useEditProductMutation({});
 
   const {
     handleSubmit,
@@ -73,24 +86,6 @@ export const Products = () => {
     }
   };
 
-  const onSubmit = async (data) => {
-    const payload = {
-      name: data.name,
-      count: data.count,
-      price: data.price,
-      status: data.status,
-      type: data.type,
-      description: data.description,
-      images: [image],
-      discount: data.discount,
-      age: data.aga,
-    };
-    console.log(payload);
-    await addProduct(payload);
-    reset();
-    setImage("");
-  };
-
   const [productId, setProductId] = React.useState("");
   const handelSetProductId = (id) => {
     setProductId(id);
@@ -100,15 +95,58 @@ export const Products = () => {
     setProductId("");
     setDeletePopup(!deletePopup);
   };
-  console.log({ productId });
+
+  const [edit, setEdit] = useState("");
+  const handleEditProduct = (id) => {
+    const productData = products.find((item) => item.id === id);
+    setAddPopup(!addPopup);
+    setEdit(productData);
+  };
+
+  console.log({ edit });
+
+  const onSubmit = async (data) => {
+    if (edit) {
+      const payload = {
+        name: data.name,
+        count: data.count,
+        price: data.price,
+        status: data.status,
+        type: data.type,
+        description: data.description,
+        discount: data.discount,
+        images: edit?.images,
+        age: data.age,
+      };
+      await editProduct({payload , id : edit?.id});
+      reset();
+      setImage("");
+    } else {
+      const payload = {
+        name: data.name,
+        count: data.count,
+        price: data.price,
+        status: data.status,
+        type: data.type,
+        description: data.description,
+        images: [image],
+        discount: data.discount,
+        age: data.age,
+      };
+      await addProduct(payload);
+      reset();
+      setImage("");
+    }
+  };
 
   return (
     <div className="container mx-auto my-[10px]">
       <ProductTable
         TABLE_HEAD={TABLE_HEAD}
-        TABLE_ROWS={data?.data?.Products}
+        TABLE_ROWS={products}
         handleOpenPopup={handleOpen}
         handelSetProductId={handelSetProductId}
+        handleEditProduct={handleEditProduct}
       />
       <DialogCustom
         header={"Delete Product"}
@@ -150,7 +188,7 @@ export const Products = () => {
               <Controller
                 name="name"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.name : ""}
                 render={({ field }) => (
                   <Input
                     {...field}
@@ -165,7 +203,7 @@ export const Products = () => {
               <Controller
                 name="count"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.count : ""}
                 render={({ field }) => (
                   <Input
                     label={"Product Count"}
@@ -182,7 +220,7 @@ export const Products = () => {
               <Controller
                 name="price"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.price : ""}
                 render={({ field }) => (
                   <Input
                     {...field}
@@ -198,7 +236,7 @@ export const Products = () => {
               <Controller
                 name="discount"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.discount : ""}
                 render={({ field }) => (
                   <Input
                     {...field}
@@ -214,11 +252,11 @@ export const Products = () => {
               <Controller
                 name="status"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.status : ""}
                 render={({ field }) => (
                   <Select {...field} label="Select Status">
-                    <Option value="true">Active</Option>
-                    <Option value="false">None</Option>
+                    <Option value={true}>Active</Option>
+                    <Option value={false}>None</Option>
                   </Select>
                 )}
               />
@@ -228,7 +266,7 @@ export const Products = () => {
               <Controller
                 name="age"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.age : ""}
                 render={({ field }) => (
                   <Select {...field} label="Select age">
                     <Option value="جديد">جديد</Option>
@@ -243,7 +281,7 @@ export const Products = () => {
               <Controller
                 name="type"
                 control={control}
-                defaultValue=""
+                defaultValue={edit ? edit?.type : ""}
                 render={({ field }) => (
                   <Select {...field} label="Select Type">
                     <Option value="Laptop">Laptop</Option>
@@ -254,21 +292,9 @@ export const Products = () => {
             </div>
 
             <div className="col-span-12">
-              {/* <Controller
-                name="description"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <Textarea
-                    {...field}
-                    label={"Product Description"}
-                    type={"text"}
-                    className={"description"}
-                  />
-                )}
-              /> */}
               <Controller
                 name="description"
+                defaultValue={edit ? edit?.description : ""}
                 control={control}
                 render={({ field }) => <ReactQuill {...field} />}
               />
@@ -276,7 +302,7 @@ export const Products = () => {
 
             <div className="col-span-12">
               <Input
-                label={"Product Name"}
+                label={"Product image"}
                 type={"file"}
                 onChange={handleImageUpload}
                 accept="image/*"

@@ -22,6 +22,7 @@ export const ProductTable = ({
   handleOpenPopup,
   TABLE_ROWS,
   handelSetProductId,
+  handleEditProduct,
 }) => {
   return (
     <Card className="h-full w-full">
@@ -147,7 +148,10 @@ export const ProductTable = ({
                     </td>
                     <td className={classes}>
                       <Tooltip content="Edit Product">
-                        <IconButton variant="text">
+                        <IconButton
+                          variant="text"
+                          onClick={() => handleEditProduct(id)}
+                        >
                           <PencilIcon className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
