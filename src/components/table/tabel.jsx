@@ -17,6 +17,13 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 
+export const getImage = (rawURL) => {
+  const RAW_URL1 = rawURL?.split("/d/");
+  const RAW_URL2 = RAW_URL1 ? RAW_URL1[1]?.split("/view") : "";
+  const IMAGE_ID = RAW_URL2 ? RAW_URL2[0] : "";
+  return `https://drive.google.com/thumbnail?id=${IMAGE_ID}`;
+};
+
 export const ProductTable = ({
   TABLE_HEAD,
   handleOpenPopup,
@@ -66,7 +73,7 @@ export const ProductTable = ({
                   description,
                   discount,
                   id,
-                  images,
+                  url1,
                   name,
                   price,
                   type,
@@ -92,11 +99,8 @@ export const ProductTable = ({
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Avatar
-                        src={images ? images[0] : null}
-                        alt={name}
-                        size="xxl"
-                      />
+                      <img src={getImage(url1)} alt={name} />
+                      {/* <Avatar src={getImage(url1)} alt={name} size="xxl" /> */}
                     </td>
                     <td className={classes}>
                       <Typography

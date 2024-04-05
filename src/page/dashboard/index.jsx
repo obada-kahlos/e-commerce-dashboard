@@ -1,12 +1,25 @@
 import React from "react";
-import { MdcinAvatar, MdcinBox, MdcinButton, MdcinInput, MdcinProfileSearchCart, MdcinText } from 'mdcin-ui-v1'
+import {
+  MdcinAvatar,
+  MdcinBox,
+  MdcinButton,
+  MdcinInput,
+  MdcinProfileSearchCart,
+  MdcinText,
+} from "mdcin-ui-v1";
+
+export const getImage = (rawURL) => {
+  const RAW_URL1 = rawURL?.split("/d/");
+  const RAW_URL2 = RAW_URL1 ? RAW_URL1[1]?.split("/view") : "";
+  const IMAGE_ID = RAW_URL2 ? RAW_URL2[0] : "";
+  return `https://drive.google.com/thumbnail?id=${IMAGE_ID}`;
+};
 
 export const Dashboard = () => {
-
-
-  return <div>
-    <div className="w-full h-screen flex items-center justify-center gap-4 ">
-      {/* <MdcinBox paddingValue="10px" shadow="small" height="300px" rounded="medium" width="800px" display="flex" justifyContent="center" alignItems="center">
+  return (
+    <div>
+      <div className="w-full h-screen flex items-center justify-center gap-4 ">
+        {/* <MdcinBox paddingValue="10px" shadow="small" height="300px" rounded="medium" width="800px" display="flex" justifyContent="center" alignItems="center">
         <div className="m-1 flex flex-col gap-y-2">
           <MdcinButton value="Mdcin button" size="large" color="success" variant="contained" onClick={() => alert('hi')} />
           <MdcinButton value="Mdcin button" size="large" color="danger" variant="contained" />
@@ -25,7 +38,19 @@ export const Dashboard = () => {
         </div>
       </MdcinBox> */}
 
-      <MdcinText color="#191919" size="large" value="Ammar website" weight="400" />
+        <img
+          src={getImage(
+            "https://drive.google.com/file/d/1steV2SnzrgFlVHv3qIifzIsoxcO2yZwu/view?usp=drivesdk"
+          )}
+          alt="img"
+        />
+        <MdcinText
+          color="#191919"
+          size="large"
+          value="Ammar website"
+          weight="400"
+        />
+      </div>
     </div>
-  </div>;
+  );
 };

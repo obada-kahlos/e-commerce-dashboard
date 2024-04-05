@@ -14,7 +14,7 @@ const extendedApi = apiSlice.injectEndpoints({
                 description
                 discount
                 id
-                images
+                url1
                 name
                 price
                 type
@@ -60,7 +60,7 @@ const extendedApi = apiSlice.injectEndpoints({
               count
               description
               discount
-              images
+              url1
               name
               price
               status
@@ -70,7 +70,7 @@ const extendedApi = apiSlice.injectEndpoints({
           `,
           variables: {
             payload,
-            id
+            id,
           },
         },
       }),

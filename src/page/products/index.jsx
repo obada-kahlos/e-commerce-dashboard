@@ -115,10 +115,10 @@ export const Products = () => {
         type: data.type,
         description: data.description,
         discount: data.discount,
-        images: edit?.images,
+        url1: data.image,
         age: data.age,
       };
-      await editProduct({payload , id : edit?.id});
+      await editProduct({ payload, id: edit?.id });
       reset();
       setImage("");
     } else {
@@ -129,7 +129,7 @@ export const Products = () => {
         status: data.status,
         type: data.type,
         description: data.description,
-        images: [image],
+        url1: data.image,
         discount: data.discount,
         age: data.age,
       };
@@ -138,6 +138,8 @@ export const Products = () => {
       setImage("");
     }
   };
+
+  console.log({ products });
 
   return (
     <div className="container mx-auto my-[10px]">
@@ -301,6 +303,22 @@ export const Products = () => {
             </div>
 
             <div className="col-span-12">
+              <Controller
+                name="image"
+                control={control}
+                defaultValue={edit ? edit?.url1 : ""}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label={"Product image"}
+                    type={"text"}
+                    className={"name"}
+                  />
+                )}
+              />
+            </div>
+
+            {/* <div className="col-span-12">
               <Input
                 label={"Product image"}
                 type={"file"}
@@ -308,7 +326,7 @@ export const Products = () => {
                 accept="image/*"
                 className={"name"}
               />
-            </div>
+            </div> */}
             {image ? (
               <div className="col-span-12">
                 <img
