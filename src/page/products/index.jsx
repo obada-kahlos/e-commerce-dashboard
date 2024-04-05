@@ -121,6 +121,7 @@ export const Products = () => {
       await editProduct({ payload, id: edit?.id });
       reset();
       setImage("");
+      setAddPopup(false)
     } else {
       const payload = {
         name: data.name,
@@ -136,10 +137,10 @@ export const Products = () => {
       await addProduct(payload);
       reset();
       setImage("");
+      setAddPopup(false)
     }
   };
 
-  console.log({ products });
 
   return (
     <div className="container mx-auto my-[10px]">
