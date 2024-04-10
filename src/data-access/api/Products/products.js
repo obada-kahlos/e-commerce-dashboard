@@ -10,7 +10,7 @@ const extendedApi = apiSlice.injectEndpoints({
         body: {
           query: `
             query MyQuery {
-              Products {
+              products {
                 description
                 discount
                 id
@@ -53,8 +53,8 @@ const extendedApi = apiSlice.injectEndpoints({
         method: "POST",
         body: {
           query: `
-          mutation MyMutation($payload: Products_set_input, $id: uuid = "") {
-            update_Products_by_pk(pk_columns: {id: $id}, _set: $payload){
+          mutation MyMutation($payload: products_set_input, $id: uuid = "") {
+            update_products_by_pk(pk_columns: {id: $id}, _set: $payload){
               id
               age
               count
@@ -83,7 +83,7 @@ const extendedApi = apiSlice.injectEndpoints({
         body: {
           query: `
             mutation MyMutation($id : uuid!) {
-              delete_Products_by_pk(id: $id) {
+              delete_products_by_pk(id: $id) {
                 id
               }
             }          
