@@ -48,8 +48,8 @@ export const Products = () => {
 
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    if (data?.data?.Products) {
-      setProducts(data?.data?.Products);
+    if (data?.data?.products) {
+      setProducts(data?.data?.products);
     }
   }, [data]);
 
@@ -144,6 +144,8 @@ export const Products = () => {
       setAddPopup(false);
     }
   };
+
+  console.log({ products });
 
   return (
     <div className="container mx-auto my-[10px]">
