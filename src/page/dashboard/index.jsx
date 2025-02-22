@@ -34,43 +34,46 @@ export const Dashboard = () => {
       payload,
       id: "d930fc44-7061-4184-b8fe-42c6f6cbc069",
     });
-    reset();
   };
 
   console.log({ dollar });
+
+  if (isLoadingDollarPrice) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center gap-4">
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div>
       <div className="w-full h-screen flex items-center justify-center gap-4 ">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {isLoadingDollarPrice ? (
-            <div> Loading... </div>
-          ) : (
-            <div className="w-[300px] flex flex-col gap-2 items-center">
-              <Controller
-                name="dollar_price"
-                control={control}
-                defaultValue={dollar}
-                render={({ field }) => (
-                  <Input
-                    label={"Dollar Price"}
-                    type={"text"}
-                    className={"dollar"}
-                    {...field}
-                    rounded={"50px"}
-                  />
-                )}
-              />
-              <Button
-                variant="gradient"
-                disabled={isLoading}
-                type="submit"
-                color="green"
-              >
-                <span>Add Dollar Price</span>
-              </Button>
-            </div>
-          )}
+          <div className="w-[300px] flex flex-col gap-2 items-center">
+            <Controller
+              name="dollar_price"
+              control={control}
+              defaultValue={dollar}
+              render={({ field }) => (
+                <Input
+                  label={"Dollar Price"}
+                  type={"text"}
+                  className={"dollar"}
+                  {...field}
+                  rounded={"50px"}
+                />
+              )}
+            />
+            <Button
+              variant="gradient"
+              disabled={isLoading}
+              type="submit"
+              color="green"
+            >
+              <span>Add Dollar Price</span>
+            </Button>
+          </div>
         </form>
       </div>
     </div>
