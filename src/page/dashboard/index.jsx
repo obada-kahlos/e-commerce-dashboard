@@ -22,7 +22,7 @@ export const Dashboard = () => {
     if (data?.data?.dollar_price_by_pk) {
       setDollar(data?.data?.dollar_price_by_pk?.dollar_price);
     }
-  }, [data?.data?.dollar_price_by_pk?.dollar_price]);
+  }, [data]);
 
   const [editDollar, { isLoading }] = useUpdateDollarMutation({});
 
@@ -51,6 +51,7 @@ export const Dashboard = () => {
       <div className="w-full h-screen flex items-center justify-center gap-4 ">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="w-[300px] flex flex-col gap-2 items-center">
+            <p> Old price {dollar} </p>
             <Controller
               name="dollar_price"
               control={control}
