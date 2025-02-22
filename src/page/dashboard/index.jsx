@@ -15,11 +15,13 @@ export const Dashboard = () => {
     reset,
   } = useForm({});
 
-  const { data } = useGetDollarQuery({});
+  const { data, isLoading: isLoadingDollarPrice } = useGetDollarQuery({});
   const [dollar, setDollar] = useState(0);
 
   useEffect(() => {
-    setDollar(data?.data?.dollar_price_by_pk?.dollar_price ?? 0);
+    if (data?.data?.dollar_price_by_pk) {
+      setDollar(data?.data?.dollar_price_by_pk?.dollar_price ?? 0);
+    }
   }, [data]);
 
   const [editDollar, { isLoading }] = useUpdateDollarMutation({});
@@ -35,34 +37,40 @@ export const Dashboard = () => {
     reset();
   };
 
+  console.log({ dollar });
+
   return (
     <div>
       <div className="w-full h-screen flex items-center justify-center gap-4 ">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="w-[300px] flex flex-col gap-2 items-center">
-            <Controller
-              name="dollar_price"
-              control={control}
-              defaultValue={dollar}
-              render={({ field }) => (
-                <Input
-                  label={"Dollar Price"}
-                  type={"text"}
-                  className={"dollar"}
-                  {...field}
-                  rounded={"50px"}
-                />
-              )}
-            />
-            <Button
-              variant="gradient"
-              disabled={isLoading}
-              type="submit"
-              color="green"
-            >
-              <span>Add Dollar Price</span>
-            </Button>
-          </div>
+          {isLoadingDollarPrice ? (
+            <div> Loading... </div>
+          ) : (
+            <div className="w-[300px] flex flex-col gap-2 items-center">
+              <Controller
+                name="dollar_price"
+                control={control}
+                defaultValue={dollar}
+                render={({ field }) => (
+                  <Input
+                    label={"Dollar Price"}
+                    type={"text"}
+                    className={"dollar"}
+                    {...field}
+                    rounded={"50px"}
+                  />
+                )}
+              />
+              <Button
+                variant="gradient"
+                disabled={isLoading}
+                type="submit"
+                color="green"
+              >
+                <span>Add Dollar Price</span>
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </div>
