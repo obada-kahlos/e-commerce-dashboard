@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
@@ -16,7 +16,13 @@ export const Dashboard = () => {
   } = useForm({});
 
   const { data } = useGetDollarQuery({});
-  const [editDollar] = useUpdateDollarMutation({});
+  const [dollar, setDollar] = useState(0);
+
+  useEffect(() => {
+    setDollar(data?.data?.dollar_price_by_pk?.dollar_price ?? 0);
+  }, [data]);
+
+  const [editDollar, { isLoading }] = useUpdateDollarMutation({});
 
   const onSubmit = async (data) => {
     const payload = {
@@ -33,11 +39,11 @@ export const Dashboard = () => {
     <div>
       <div className="w-full h-screen flex items-center justify-center gap-4 ">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="col-span-12">
+          <div className="w-[300px] flex flex-col gap-2 items-center">
             <Controller
               name="dollar_price"
               control={control}
-              defaultValue={data?.data?.dollar_price_by_pk?.dollar_price}
+              defaultValue={dollar}
               render={({ field }) => (
                 <Input
                   label={"Dollar Price"}
@@ -48,7 +54,12 @@ export const Dashboard = () => {
                 />
               )}
             />
-            <Button variant="gradient" type="submit" color="green">
+            <Button
+              variant="gradient"
+              disabled={isLoading}
+              type="submit"
+              color="green"
+            >
               <span>Add Dollar Price</span>
             </Button>
           </div>
