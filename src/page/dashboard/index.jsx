@@ -48,12 +48,7 @@ export const Dashboard = () => {
                 />
               )}
             />
-            <Button
-              variant="gradient"
-              disabled={isLoadingAddProduct}
-              type="submit"
-              color="green"
-            >
+            <Button variant="gradient" type="submit" color="green">
               <span>Add Dollar Price</span>
             </Button>
           </div>
