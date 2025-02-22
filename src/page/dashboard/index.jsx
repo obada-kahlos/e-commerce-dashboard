@@ -20,7 +20,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (data?.data?.dollar_price_by_pk) {
-      setDollar(data?.data?.dollar_price_by_pk?.dollar_price ?? 0);
+      setDollar(data?.data?.dollar_price_by_pk?.dollar_price);
     }
   }, [data?.data?.dollar_price_by_pk?.dollar_price]);
 
