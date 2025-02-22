@@ -22,7 +22,7 @@ export const Dashboard = () => {
     if (data?.data?.dollar_price_by_pk) {
       setDollar(data?.data?.dollar_price_by_pk?.dollar_price ?? 0);
     }
-  }, [data]);
+  }, [data?.data?.dollar_price_by_pk?.dollar_price]);
 
   const [editDollar, { isLoading }] = useUpdateDollarMutation({});
 
