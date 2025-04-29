@@ -36,8 +36,6 @@ export const Dashboard = () => {
     });
   };
 
-  console.log({ dollar });
-
   if (isLoadingDollarPrice) {
     return (
       <div className="w-full h-screen flex items-center justify-center gap-4">

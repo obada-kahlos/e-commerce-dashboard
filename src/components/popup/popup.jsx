@@ -7,7 +7,6 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 
-
 export const DialogCustom = ({ open, handleOpen, children, header }) => {
   return (
     <>
@@ -20,8 +19,11 @@ export const DialogCustom = ({ open, handleOpen, children, header }) => {
         }}
       >
         <DialogHeader>{header}</DialogHeader>
-        <DialogBody style={{ overflow: 'auto', maxHeight: '500px', padding: '10px' }}>{children}</DialogBody>
-
+        <DialogBody
+          style={{ overflow: "auto", maxHeight: "500px", padding: "10px" }}
+        >
+          {children}
+        </DialogBody>
       </Dialog>
     </>
   );

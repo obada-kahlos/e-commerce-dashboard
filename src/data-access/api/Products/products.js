@@ -10,13 +10,15 @@ const extendedApi = apiSlice.injectEndpoints({
         body: {
           query: `
             query MyQuery {
-              products {
+              products(order_by : {name : desc}) {
                 description
                 discount
                 id
                 url1
                 url2
                 url3
+                url4
+                url5
                 name
                 price
                 type

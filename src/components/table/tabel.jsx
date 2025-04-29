@@ -89,7 +89,7 @@ export const ProductTable = ({
 
                 return (
                   <tr key={id}>
-                    <td className={classes}>
+                    {/* <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -97,7 +97,7 @@ export const ProductTable = ({
                       >
                         {id}
                       </Typography>
-                    </td>
+                    </td> */}
                     <td className={classes}>
                       <img src={getImage(url1)} alt={name} />
                       {/* <Avatar src={getImage(url1)} alt={name} size="xxl" /> */}
@@ -111,7 +111,7 @@ export const ProductTable = ({
                         {name}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    {/* <td className={classes}>
                       <Typography
                         variant="small"
                         color="blue-gray"
@@ -119,7 +119,7 @@ export const ProductTable = ({
                       >
                         {description?.slice(0, 60)}
                       </Typography>
-                    </td>
+                    </td> */}
                     <td className={classes}>
                       <Typography
                         variant="small"
@@ -175,19 +175,6 @@ export const ProductTable = ({
           </tbody>
         </table>
       </CardBody>
-      {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 10
-        </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm">
-            Next
-          </Button>
-        </div>
-      </CardFooter> */}
     </Card>
   );
 };

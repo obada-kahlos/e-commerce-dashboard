@@ -27,7 +27,6 @@ export const Products = () => {
   const [image, setImage] = React.useState("");
 
   const TABLE_HEAD = [
-    "Product id",
     "Product image",
     "Product name",
     "Product description",
@@ -103,8 +102,6 @@ export const Products = () => {
     setEdit(productData);
   };
 
-  console.log({ edit });
-
   const onSubmit = async (data) => {
     if (edit) {
       const payload = {
@@ -118,6 +115,8 @@ export const Products = () => {
         url1: data.url1,
         url2: data.url2,
         url3: data.url3,
+        url4: data.url4,
+        url5: data.url5,
         age: data.age,
       };
       await editProduct({ payload, id: edit?.id });
@@ -135,6 +134,8 @@ export const Products = () => {
         url1: data.url1,
         url2: data.url2,
         url3: data.url3,
+        url4: data.url4,
+        url5: data.url5,
         discount: data.discount,
         age: data.age,
       };
@@ -144,8 +145,6 @@ export const Products = () => {
       setAddPopup(false);
     }
   };
-
-  console.log({ products });
 
   return (
     <div className="container mx-auto my-[10px]">
@@ -293,6 +292,7 @@ export const Products = () => {
                 render={({ field }) => (
                   <Select {...field} label="Select Type">
                     <Option value="Laptop">Laptop</Option>
+                    <Option value="Mobile">Mobile</Option>
                     <Option value="Accessory">Accessory</Option>
                   </Select>
                 )}
@@ -343,6 +343,38 @@ export const Products = () => {
             <div className="col-span-12">
               <Controller
                 name="url3"
+                control={control}
+                defaultValue={edit ? edit?.url3 : ""}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label={"Product image"}
+                    type={"text"}
+                    className={"name"}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-12">
+              <Controller
+                name="url4"
+                control={control}
+                defaultValue={edit ? edit?.url3 : ""}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    label={"Product image"}
+                    type={"text"}
+                    className={"name"}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-12">
+              <Controller
+                name="url5"
                 control={control}
                 defaultValue={edit ? edit?.url3 : ""}
                 render={({ field }) => (
