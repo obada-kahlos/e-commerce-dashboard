@@ -360,7 +360,7 @@ export const Products = () => {
               <Controller
                 name="url4"
                 control={control}
-                defaultValue={edit ? edit?.url3 : ""}
+                defaultValue={edit ? edit?.url4 : ""}
                 render={({ field }) => (
                   <Input
                     {...field}
@@ -376,7 +376,7 @@ export const Products = () => {
               <Controller
                 name="url5"
                 control={control}
-                defaultValue={edit ? edit?.url3 : ""}
+                defaultValue={edit ? edit?.url5 : ""}
                 render={({ field }) => (
                   <Input
                     {...field}
