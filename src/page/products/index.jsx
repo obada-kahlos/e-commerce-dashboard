@@ -29,7 +29,6 @@ export const Products = () => {
   const TABLE_HEAD = [
     "Product image",
     "Product name",
-    "Product description",
     "Product price",
     "Product count",
     "Product status",
